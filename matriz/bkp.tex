@@ -1,0 +1,1494 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+
+\usepackage[lmargin=3cm,tmargin=3cm,rmargin=2cm,bmargin=2cm]{geometry}
+\usepackage[nodisplayskipstretch]{setspace}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{graphicx\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+
+\usepackage[lmargin=3cm,tmargin=3cm,rmargin=2cm,bmargin=2cm]{geometry}
+\usepackage[nodisplayskipstretch]{setspace}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{graphicx,xcolor,comment,enumerate,multirow,multicol,indentfirst}
+
+\usepackage{amsmath,amsthm,amsfonts,amssymb,dsfont,mathtools}
+
+% Bordas
+
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\lhead{}
+\chead{}
+\rhead{}
+\lfoot{}
+\cfoot{}
+\rfoot{\thepage}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0.5pt}
+
+% Capa e contracapa
+
+%=============Correção da raiz quadrada==================
+
+
+\usepackage{letltxmacro}
+\makeatletter
+\let\oldr@@t\r@@t
+\def\r@@t#1#2{%
+\setbox0=\hbox{$\oldr@@t#1{#2\,}$}\dimen0=\ht0
+\advance\dimen0-0.2\ht0
+\setbox2=\hbox{\vrule height\ht0 depth -\dimen0}%
+{\box0\lower0.4pt\box2}}
+\LetLtxMacro{\oldsqrt}{\sqrt}
+\renewcommand*{\sqrt}[2][\ ]{\oldsqrt[#1]{#2}}
+\makeatother
+
+
+%==============Citações=================
+
+\usepackage[round]{natbib}
+\bibliographystyle{dinat}
+
+\newenvironment{citlong}
+{\vspace{0.5cm}\hfill\begin{minipage}[c]{12cm}\setstretch{1.0}\small}
+{\end{minipage}\vspace{0.5cm}}
+
+%==========================================Começo do Documento===========
+
+\begin{document}
+\setstretch{1.3}
+
+\thispagestyle{empty}
+\begin{center}
+
+    %\parbox{1.5 %cm}{\includegraphics[scale=1]{figuras/sesi-logo.png}}
+    
+    \begin{figure}[h]
+    
+    \centering % para centralizarmos a figura
+    \includegraphics[width=7cm]{figuras/sesi-logo.png} % leia abaixo
+    % \label{figura:qualquernome}
+
+    \end{figure}
+    
+    \Large \textbf{Luiz Carlos Trabuco Cappi}
+    \Large \textbf{}
+    
+    \vspace{2 cm}
+    \Large \textbf{Gabriel Lucena da Cunha № 12 \\ Gustavo Rodrigues Peixoto № 15 \\ Letícia Della Torre № 20 \\ Nicoly Zillig Dias № 28 \\ Stefany Silva Araújo № 32 \\ Jorge Luis Cantagessi de Souza Junior № 34}
+    
+    
+    \vspace{2 cm}   
+    \Large \textbf{Matriz} \\
+    \textbf{Tipos e classificações}
+    
+\end{center}
+
+\begin{center}
+    \vspace{6.2 cm}
+    Osasco\\
+    2022
+\end{center}
+
+%==============================Contracapa========================
+
+\newpage
+
+\begin{titlepage}
+
+    \begin{center}
+        
+        \Large \textbf{Gabriel Lucena da Cunha № 12 \\ Gustavo Rodrigues Peixoto № 15 \\ Letícia Della Torre № 20 \\ Nicoly Zillig Dias № 28 \\ Stefany Silva Araújo № 32 \\ Jorge Luis Cantagessi de Souza Junior № 34}
+        
+        \vspace{3 cm}
+        \Large \textbf{Matriz} \\
+        \textbf{Tipos e classificações}
+        
+    \end{center}
+    
+    \vspace{3 cm}
+    
+    \hfill \parbox{8 cm}{Trabalho sobre tipos e classificações de matrizes, apresentado à Roseli Jordão como parte da aprendizagem sobre matrizes e determinantes}
+    
+    \vspace{3 cm}
+    
+    \begin{table}[htb!]
+        \centering
+        \begin{tabular}{c}
+             Orientador: \\
+             Prof. Me. Roseli Jordão 
+        \end{tabular}
+    \end{table}
+    
+    \begin{center}
+        \vspace{2.5 cm}
+        Osasco \\
+        2022
+    \end{center}
+
+\end{titlepage}
+
+%===============================Sumário=============================
+
+\thispagestyle{empty}
+\tableofcontents
+\thispagestyle{empty}
+\pagebreak 
+
+%===============================Introdução=============================
+
+
+\section*{Introdução}
+
+As matrizes têm uma longa história de aplicação na solução de sistemas lineares, porém elas eram conhecidas com vetores até o século XIX. Segundo \cite{LUN}, O texto chinês \textit{Os nove capítulos da arte matemática} escrito entre o século X e II a.C. é o primeiro exemplo do uso de métodos de matrizes para a resolução de sistemas de equações lineares, incluindo o conceito de determinantes. Em 1545, o matemático italiano Gerolamo Cardano introduziu o método à Europa quando ele publicou \textit{Ars Magna}, como relatado em \cite{DOSSEY}. Segundo \cite{NEEDHAM}, o matemático japonês Seki usou o mesmo método de matrizes para resolver sistemas lineares em 1683. De acordo com \cite{OTTO}, o matemático batavo Jan de Witt representou transformações usando matrizes em seu livro de 1969 \textit{Elements of Curves}. \cite{OTTO} afirma que entre 1700 e 1710 Gottfried Wilhelm Leibniz publicou o uso de matrizes para registrar informações ou soluções e experimentou mais de 50 sistemas lineares. Cramer apresentou sua regra em 1750.
+
+O termo "matriz" (palavra latina para "ventre", derivado de \textit{mater}---mãe) foi cunhado por James Joseph Sylvester em 1850, que compreendeu uma matriz como um objeto originando vários determinantes hoje chamados de menores, ou seja, determinantes de matrizes menores que derivam da remoção de colunas e linhas da matriz original. Em um artigo de 1851, Sylvester esclarece:
+
+\begin{citlong}
+
+Em trabalhos anteriores defini uma "matriz" como um arranjo retangular de termos, a partir do qual diferentes sistemas de determinantes podem ser gerados do ventre de um pai comum; esses determinantes cognatos não são de forma alguma isolados em suas relações recíprocas, mas sujeitos a certas leis simples de dependência mútua e desgaste simultâneo.
+
+\citep[p.247]{SYLVESTER}
+
+\end{citlong}
+
+Arthur Cayley publicou um tratado sobre transformações geométricas usando matrizes que não eram versões rotacionadas dos coeficientes investigados, como havia sido feito anteriormente. Em vez disso, ele definiu operações como adição, subtração, multiplicação e divisão como transformações dessas matrizes e mostrou que as propriedades associativas e distributivas eram verdadeiras. Cayley também demonstrou a propriedade não comutativa da multiplicação de matrizes, bem como a propriedade comutativa da adição de matrizes. A teoria matricial inicial limitou o uso de matrizes quase que exclusivamente a determinantes e as operações entre matrizes abstratas de Arthur Cayley foram um avanço revolucionário. Ele deu um grande passo em direção a propor um conceito de matriz independente de sistemas de equações. Em conformidade com \cite{STINSON}, no ano de 1858 Cayley publicou seu \textit{A memoir on the theory of matrices}, \cite{CAYLEY}, no qual ele propôs e demonstrou o teorema de Cayley-Hamilton.
+
+Ainda em concordância com \cite{STINSON}, o matemático inglês Cuthbert Edmund Cullis foi o primeiro a utilizar a notação de colchetes moderna para matrizes em 1913 e \textit{pari passu} demonstrou o primeiro uso da notação  $ \text{A} = [\text{a}_{ i,j}]$ para representar uma matriz em que $ \text{a}_{i,j} $ se refere à i-ésima linha e à j-ésima coluna.
+
+Conforme \cite{KNOBLOCH}, o estudo moderno de determinantes surgiu de várias fontes. Problemas da teoria dos números levaram Gauss a relacionar coeficientes de formas quadráticas, expressões como $ x^{2} + xy - 2y^{2}$, e mapas lineares em três dimensões com matrizes. Eisenstein posteriormente desenvolveu estas noções, incluindo o fato dos produtos matriciais serem não comutativos. Cauchy foi o primeiro a provar afirmações gerais sobre determinantes. Jacobi estudou "determinantes funcionais" ---mais tarde chamados de determinantes de Jacobi por Sylvester---que podem descrever transformações geométricas num nível local ou infinitesimal. O \textit{Vorlesungen über die Theorie der Determinanten} de Kronecker, \cite{KRONECKER} , e \textit{Zur Determinantentheorie} de Weierstrass, \cite{WEIERSTRASS}, ambos publicados em 1903, primeiro estabeleceram os determinantes axiomaticamente, ao contrário de abordagens anteriores, como a de Cauchy. Nesse ponto, os determinantes estavam firmemente estabelecidos.
+
+Muitos teoremas foram provados pela primeira vez somente para pequenas matrizes, por exemplo, o teorema de Cayley-Hamilton foi provado para matrizes $ 2 \times 2 $ por Cayley e por Hamilton para matrizes $ 4 \times 4 $. Frobenius, trabalhando em formas bilineares, generalizou o teorema para todas as dimensões em 1898. Também no final do século XIX, a eliminação de Gauss-Jordan foi estabelecida por Wilhelm Jordan. No começo do século XX, as matrizes estabeleceram um papel central na álgebra linear, de acordo com \cite{MAXIME},  parte devido ao seu uso na classificação dos sistemas numéricos hipercomplexos do século anterior.
+
+Segundo \cite{MEHRA}, o começo da mecânica matricial por Heisenberg, Born e Jordan levou ao estudo de matrizes com infinitas linhas e colunas. Mais tarde, von Neumann realizou a formulação matemática da mecânica quântica, desenvolvendo noções analíticas funcionais como operadores lineares em espaços de Hilbert, que, grosso modo, correspondem ao espaço euclidiano, entretanto com uma infinidade de direções independentes.
+
+Portanto, após esta breve apresentação da importância e relevância do objeto de estudo serão explicados os diferentes tipos e classificações de matrizes.
+
+\pagebreak
+
+\section{Definição de matriz}
+
+Uma matriz é um arranjo retangular de \textbf{m} linhas e \textbf{n} colunas, cujo elemento na linha \textbf{i} e coluna \textbf{j} é $ \text{a}_{ij} $.
+
+$$ \begin{bmatrix}
+\text{a}_{11}&\dots&\text{a}_{1n}\\
+\dots&\dots&\dots\\
+\text{a}_{m1}&\dots&\text{a}_{mn}\\
+\end{bmatrix}\label{x} $$
+
+\textbf{E.g.:} $ \text{A}_{3 \times 4} = (\text{a}_{ij})_{3 \times 4}  =  \begin{bmatrix}
+3 & 5 & 7 & 9  \\
+4 & 6 & 8 & 10 \\
+5 & 7 & 9 & 11 
+\end{bmatrix}$ , em que $ \text{a}_{ij} = i + 2j $
+
+\textbf{E.g.:} $ \text{B}_{3 \times 2} = (\text{b}_{ij})_{3 \times 2} = \begin{bmatrix}
+2 & 1\\ 
+1 & 2\\ 
+1 & 1
+\end{bmatrix}$ , em que $ \text{b}_{ij} = 
+\left\{\begin{matrix}
+2\text{, se $ i=j $}\\ 
+ 1\text{, se $ i\neq j  $}&  
+\end{matrix}\right. $
+
+Caso os elementos de uma matriz A pertençam a um conjunto numérico K e essa tenha \textbf{m} linhas e \textbf{n} colunas, escreve-se $ \text{A} \in \text{M}_{m \times n} (\text{K})$.
+Por exemplo, $ \text{A} \in \text{M}_{2 \times 3} (\mathbb{C}) $ significa que $ \text{A} $ é uma matriz $ 2 \times 3$ cujos elementos são números complexos. 
+
+\section{Representação de matriz}
+
+Matrizes são normalmente escritas em parêntese ou colchetes:
+
+$$ \begin{bmatrix}
+ a_{11} & a_{12} & \cdots & a_{1n} \\
+ a_{21} & a_{22} & \cdots & a_{2n} \\
+ \vdots & \vdots & \ddots & \vdots \\
+ a_{m1} & a_{m2} & \cdots & a_{mn}
+ \end{bmatrix} = 
+\left( \begin{array}{rrrr}
+ a_{11} & a_{12} & \cdots & a_{1n} \\
+ a_{21} & a_{22} & \cdots & a_{2n} \\
+ \vdots & \vdots & \ddots & \vdots \\
+ a_{m1} & a_{m2} & \cdots & a_{mn}
+ \end{array} \right) =\left(a_{ij}\right) \in \mathbb{R}^{m \times n}$$
+ 
+ \textbf{P.S.:} A representação adotada se refere às matrizes com entradas reais.
+
+\newpage
+
+\section{Tipos de matrizes}
+
+\subsection{Matriz Unitária}
+
+Define-se o tipo matriz unitária como uma matriz que possui apenas um elemento, ou seja, $ 1 \times 1 $.
+
+\textbf{E.g.:} $ \begin{bmatrix}
+1
+\end{bmatrix} $; $ \begin{bmatrix}
+-1
+\end{bmatrix} $;$ \begin{bmatrix}
+40
+\end{bmatrix} $
+
+\subsection{Matriz Linha}
+
+Define-se o tipo matriz linha (ou vetor linha) como uma matriz que possui apenas uma linha, ou seja, $ 1 \times \text{n} $.
+
+\textbf{E.g.:} $ \begin{bmatrix}
+1
+\end{bmatrix} $; $ \begin{bmatrix}
+-2 & 4 
+\end{bmatrix} $; $ \begin{bmatrix}
+11 & -6 & 17
+\end{bmatrix} $
+
+\subsection{Matriz Coluna}
+
+Define-se o tipo matriz coluna (ou vetor coluna) como uma matriz que possui apenas uma coluna, ou seja, $ \text{n} \times 1 $.
+
+\textbf{E.g.:} $ \begin{bmatrix}
+1\end{bmatrix} $; $ \begin{bmatrix}
+-2 \\
+4
+\end{bmatrix}$; $ \begin{bmatrix}
+11 \\ -6 \\ 17
+\end{bmatrix}$
+
+\subsection{Matriz Retangular}
+
+Define-se a matriz $ \text{A}_{\text{n} \times \text{m} } $ como uma matriz retangular se $ \text{m} \neq \text{n} $
+
+\textbf{E.g.:} $ \begin{bmatrix}
+1 & 2 & 3\\
+2 & 3 & 4
+\end{bmatrix} $; $ \begin{bmatrix}
+2 & 3\\
+7 & 1 \\
+0 & 5
+\end{bmatrix} $ ; $ \begin{bmatrix}
+3 & 4 & 5\\
+7 & 10 & -2\\
+-3 & 23 & 1\\
+-1 & 2 & -1
+\end{bmatrix} $
+
+\subsection{Matriz Quadrada de Ordem \textbf{n}}
+
+Matriz Quadrada de ordem \textbf{n} é toda matriz que possui \textbf{n} linhas e \textbf{n} colunas.
+
+  $$
+ \begin{bmatrix}
+ a_{11} & a_{12} & \cdots & a_{1n} \\
+ a_{21} & a_{22} & \cdots & a_{2n} \\
+ \vdots & \vdots & \ddots & \vdots \\
+ a_{n1} & a_{n2} & \cdots & a_{n}
+ \end{bmatrix} $$
+
+
+
+\textbf{E.g.:} As matrizes abaixo são, respectivamente, de ordem 4 e 3.
+
+$$ \begin{bmatrix}
+2 & 2 & 1 & 6 \\
+3 & 4 & 6 & 3 \\
+0 & 5 & 8 & 3 \\
+1 & 5 & 7 & 9
+\end{bmatrix} \text{;} \begin{bmatrix}
+    1 & 3 & 7 \\
+    1 & 0 & 0 \\
+    4 & 2 & 2
+\end{bmatrix}
+$$
+
+\subsubsection{Propriedades}
+
+\begin{itemize}
+    \item O produto entre duas matrizes de ordem \textbf{n} também é de ordem \textbf{n}.
+    
+    \item A soma entre duas matrizes de ordem \textbf{n} também é de ordem \textbf{n}.
+    
+    \item A transposta de uma matriz de ordem \textbf{n} também é de ordem \textbf{n}.
+    
+\end{itemize}
+
+\newpage
+
+\section{Classificações de Matrizes}
+
+\subsection{Matriz Real}
+Define-se a classificação de matriz real como uma matriz cujas entradas são todas números reais.
+
+\textbf{E.g.:} $ \begin{bmatrix}
+1 & 3 & 4\\
+34 & 6 & 7 \\
+55 & 4 & -3
+\end{bmatrix} $; $ \begin{bmatrix}
+23 & 45 & 12\\
+-12 & 0 & -1
+\end{bmatrix} $; $ \begin{bmatrix}
+3 & 4\\
+53 & 2
+\end{bmatrix}$
+
+\subsubsection{Propriedade}
+
+Seja $ \text{M}_{n \times m} (\mathbb{R}), n,m \in \mathbb{N} $ o conjunto de matrizes reais.
+
+\begin{itemize}
+    \item O conjunto M e a operação de soma e produto formam um anel, ou seja:
+    
+    \begin{itemize}
+    
+        \item Sobre a soma:
+
+        \begin{enumerate}
+        
+            \item A soma com quaisquer elementos de M resulta em um elemento de M, isto é, é uma operação fechada.
+            
+            \item A soma entre \textbf{n} elementos de M é associativa.
+            
+            \item Existe um elemento $ e $ em M tal que somado com qualquer elemento de M resulta nele mesmo, ou seja, há um elemento neutro.
+            
+            \item Para qualquer elemento $ f $ em M, existe outro elemento em M, tal que, a soma entre eles resulta no elemento neutro $ e $.
+            
+            \item A soma é comutativa.
+            
+        \end{enumerate}
+
+        \item Sobre o produto:
+        
+        \begin{enumerate}
+        
+            \item O produto entre elementos de M é associativo.
+            
+            \item O produto é distributivo em relação à soma à esquerda e à direita.
+            
+        \end{enumerate}
+        
+    \end{itemize}
+    
+\end{itemize}
+
+\subsection{Matriz Complexa}
+
+Define-se a classificação de matriz complexa como uma matriz cujas entradas são todas números complexos.
+
+\textbf{E.g.:} $ \begin{bmatrix}
+2 & 3 & 4\\
+3 & 4 & 5\\
+34 & 2 & 3
+\end{bmatrix} $; $ \begin{bmatrix}
+2i & i\\
+i & -i
+\end{bmatrix} $; $ \begin{bmatrix}
+i & 0 & 0\\
+0 & i & 0\\
+0 & 0 & i
+\end{bmatrix} $
+
+\subsubsection{Propriedade}
+
+Seja $ \text{M}_{n \times m} (\mathbb{C}), n,m \in \mathbb{N} $ o conjunto de matrizes reais.
+
+\begin{itemize}
+    \item O conjunto M e a operação de soma e produto formam um anel, ou seja:
+    
+    \begin{itemize}
+    
+        \item Sobre a soma:
+
+        \begin{enumerate}
+        
+            \item A soma com quaisquer elementos de M resulta em um elemento de M, isto é, é uma operação fechada.
+            
+            \item A soma entre \textbf{n} elementos de M é associativa.
+            
+            \item Existe um elemento $ e $ em M tal que somado com qualquer elemento de M resulta nele mesmo, ou seja, há um elemento neutro.
+            
+            \item Para qualquer elemento $ f $ em M, existe outro elemento em M, tal que, a soma entre eles resulta no elemento neutro $ e $.
+            
+            \item A soma é comutativa.
+            
+        \end{enumerate}
+
+        \item Sobre o produto:
+        
+        \begin{enumerate}
+        
+            \item O produto entre elementos de M é associativo.
+            
+            \item O produto é distributivo em relação à soma à esquerda e à direita.
+            
+        \end{enumerate}
+        
+    \end{itemize}
+    
+\textbf{P.S.:} As mesmas propriedades são satisfeitas pelas matrizes complexas, entretanto, isto ocorre pois $ \mathbb{C} \supset \mathbb{R} $. Mas se os elementos fossem de $ \mathbb{I} $ a própria operação de soma poderia não ser fechada (depende de $ 0 \in \mathbb{I} $), se considerar 0 como imaginário as matrizes podem até formar um grupo abeliano, ou seja, um grupo munido de uma soma comutativa.
+    
+\end{itemize}
+
+\subsection{Matriz Nula}
+
+Define-se a classificação de matriz nula como uma matriz cujas entradas são todas iguais a 0. Representa-se $ \text{0}_{\text{n}} $ como a matriz nula quadrada de ordem \textbf{n}.
+
+$$ 
+0_{m,n} = \begin{bmatrix}
+0 & 0 & \cdots & 0 \\
+0 & 0 & \cdots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \cdots & 0 \end{bmatrix}_{m \times n} $$
+
+\textbf{E.g.:} $ \text{0}_{1 \times 1} = \begin{bmatrix}
+0
+\end{bmatrix} $; $ \text{0}_{2 \times 1} = \begin{bmatrix}
+0 \\
+0
+\end{bmatrix} $; $ \text{0}_{1 \times 3} = \begin{bmatrix}
+0 & 0 & 0
+\end{bmatrix} $; $ \text{0}_{3 \times 2} = \begin{bmatrix}
+0 & 0 \\
+0 & 0 \\
+0 & 0 
+\end{bmatrix} $; $ \text{0}_{2} = \begin{bmatrix}
+0 & 0 \\
+0 & 0
+\end{bmatrix} $; $ \text{0}_{3} = \begin{bmatrix}
+0 & 0 & 0 \\
+0 & 0 & 0 \\
+0 & 0 & 0
+\end{bmatrix} $
+
+\subsubsection{Propriedades}
+
+Seja $ \text{K}_{m,n} $ o conjunto de matrizes $ \text{m} \times \text{n} $ com entradas em um conjunto $ \text K $.
+
+\begin{itemize}
+    \item A matriz nula é o elemento neutro da adição em $ \text{K}_{m,n} $, ou seja, para toda $ \text{A} \in \text{K}_{m,n} $, vale:
+    
+    $$ 0_{K_{m,n}}+A = A + 0_{K_{m,n}} = A $$
+    
+    \item A matriz nula é idempotente, pois quando multiplicado por si mesma, o resultado é ela própria.
+    
+\end{itemize}
+
+\subsection{Matriz Oposta}
+
+Define-se a classificação de matriz oposta como o inverso aditivo de uma matriz $ \text{A} $, ou seja, $ -\text{A} $.
+
+$$ \text{A} = \begin{bmatrix}
+ a_{11} & a_{12} & \cdots & a_{1n} \\
+ a_{21} & a_{22} & \cdots & a_{2n} \\
+ \vdots & \vdots & \ddots & \vdots \\
+ a_{m1} & a_{m2} & \cdots & a_{mn}
+ \end{bmatrix} \Rightarrow - \text{A} = \begin{bmatrix}
+ -a_{11} & -a_{12} & \cdots & -a_{1n} \\
+ -a_{21} & -a_{22} & \cdots & -a_{2n} \\
+ \vdots & \vdots & \ddots & \vdots \\
+ -a_{m1} & -a_{m2} & \cdots & -a_{mn}
+ \end{bmatrix} $$
+
+\textbf{E.g.:} $ \begin{bmatrix}
+1 & -8 \\
+2 & -6 \\
+3 & 1
+\end{bmatrix} $ a oposta é $ \begin{bmatrix}
+-1 & 8 \\
+-2 & 6 \\
+-3 & -1
+\end{bmatrix} $
+
+\subsubsection{Propriedade}
+Seja $ \text{A}_{\text{M} \times \text{N}} $ uma matriz.
+\begin{itemize}
+    \item A soma $ \text{A}_{\text{M} \times \text{N}} + -1 \ \text{A}_{\text{M} \times \text{N}} = \text{0}_{\text{M} \times \text{N}} $, portanto a soma de uma matriz pela sua oposta é igual à nula, o elemento neutro da adição.
+\end{itemize}
+
+\subsection{Matriz Identidade de Ordem \textbf{n}}
+
+Define-se a classificação de matriz identidade de ordem \textbf{n} como a matriz quadrada de ordem \textbf{n}, dada por $ \text{I}_{\text{n}}  (\text{a}_{ij}) $, em que $ \text{a}_{ij} = 0$, se $ i \neq j $ e $ \text{a}_{ij} = 1 $, se $ i = j $.
+
+$$  \text{a}_{ij} = \left\{\begin{matrix}
+1 &,\text{se } i = j
+\\ 
+0 &,\text{se } i\ne j
+\end{matrix}\right. \\
+\begin{bmatrix} 
+1 & 0 & 0 & 0 & \cdots & 0 \\ 0 & 1 & 0 & 0 & \cdots & 0 \\ 0 & 0 & 1 & 0 & \cdots & 0 \\ 0 & 0 & 0 & 1 & \cdots & 0 \\ \vdots & \vdots & \vdots & \vdots & \ddots & \vdots  \\ 0 & 0 & 0 & 0 & \cdots & 1 
+\end{bmatrix} $$
+
+\textbf{E.g.:} $ \text{I}_1 = \begin{bmatrix}
+1
+\end{bmatrix}$; $ \text{I}_2 = \begin{bmatrix}
+1 & 0 \\
+0 & 1
+\end{bmatrix}$; $ \text{I}_3 = \begin{bmatrix}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{bmatrix}$
+
+\subsubsection{Propriedades}
+
+\begin{itemize}
+
+    \item A matriz identidade $ \text{I}_{\text{n}} $ é o elemento neutro do produto entre matrizes, ou seja, para todas as matrizes quadradas $ \text{A}_{\text{n} \times \text{n}} $, temos $ \text{A}\text{I}_{\text{n}} = \text{I}_{\text{n}} \text{A} = \text{A} $.
+    
+    \item O produto entre uma matriz e sua inversa é igual à matriz identidade.
+    
+    $$ \text{A} \text{A}^{-1} = \text{I} $$
+    
+    \item A matriz transposta da matriz identidade é a própria matriz identidade.
+    
+    $$ \text{I} = \text{I}^{\text{T}} $$
+    
+    \item A matriz identidade é uma matriz diagonal.
+    
+\end{itemize}
+
+\subsection{Matriz Escalar}
+
+Define-se a classificação de matriz escalar como uma matriz quadrada cujos elementos fora da diagonal principal são todos nulos, e todos os elementos da diagonal principal são iguais entre si, ou seja, uma matriz diagonal é uma matriz da forma $ \alpha \text{I}_{\textbf{n}} $, para um natural \textbf{n} e para uma constante $ \alpha $.
+
+ $$ \alpha \begin{bmatrix}
+ 1 & 0 &  \cdots & 0 \\
+ 0 & 1 &  \cdots & 0 \\
+ \vdots & \vdots & \ddots & \vdots  \\ 
+0 & 0  & \cdots & 1
+ \end{bmatrix} \Rightarrow \begin{bmatrix}
+ \alpha & 0 &  \cdots & 0 \\
+ 0 & \alpha &  \cdots & 0 \\
+ \vdots & \vdots & \ddots & \vdots  \\ 
+0 & 0  & \cdots & \alpha
+ \end{bmatrix} \Leftrightarrow \alpha \neq 0 $$
+
+\textbf{E.g.:} $ \begin{bmatrix}
+2 & 0 & 0\\
+0 & 2 & 0 \\
+0 & 0 & 2
+\end{bmatrix} $; $\begin{bmatrix}
+\pi & 0 \\
+0 & \pi  \\
+\end{bmatrix}$; 
+
+\subsubsection{Propriedade}
+
+Seja $ \text{A} $ uma matriz escalar igual a $ \alpha \text{I}_{n} $.
+
+ \begin{itemize}
+    
+    \item Toda matriz escalar é simétrica.
+ 
+     \item A soma entre matrizes escalares é uma operação fechada, ou seja, é outra matriz escalar.
+     
+    $$ \alpha + \beta = \gamma $$
+     
+     $$ \begin{bmatrix}
+     \alpha & 0 &  \cdots & 0 \\
+     0 & \alpha &  \cdots & 0 \\
+     \vdots & \vdots & \ddots & \vdots  \\ 
+    0 & 0  & \cdots & \alpha
+     \end{bmatrix} + \begin{bmatrix}
+     \beta & 0 &  \cdots & 0 \\
+     0 & \beta &  \cdots & 0 \\
+     \vdots & \vdots & \ddots & \vdots  \\ 
+    0 & 0  & \cdots & \beta
+     \end{bmatrix} = \begin{bmatrix}
+     \gamma & 0 &  \cdots & 0 \\
+     0 & \gamma &  \cdots & 0 \\
+     \vdots & \vdots & \ddots & \vdots  \\ 
+    0 & 0  & \cdots & \gamma
+     \end{bmatrix} $$
+     
+     \item O produto entre matrizes escalares é uma operação fechada, ou seja, é outra matriz escalar.
+     
+     \item A matriz identidade é escalar.
+     
+     \item Tem determinante igual a $ \alpha^{n} $.
+     
+
+ \end{itemize}
+
+\subsection{Matriz Diagonal}
+
+Define-se a classificação de matriz diagonal como uma matriz quadrada cujos elementos fora da diagonal principal são todos nulos. Pode-se definir, também, uma matriz diagonal, a qual é uma matriz triangular superior e inferior.
+
+\textbf{E.g.:} $ \begin{bmatrix}
+1 & 0 & 0 \\
+0 & 2 & 0 \\
+0 & 0 & 3
+\end{bmatrix}$; $ \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 2 & 0 & 0 \\ 0 & 0 & 3 & 0 \\ 0 & 0 & 0 & 4 \end{bmatrix} $; $ \begin{bmatrix}
+ 1 & 0 &  \cdots & 0 \\
+ 0 & 1 &  \cdots & 0 \\
+ \vdots & \vdots & \ddots & \vdots  \\ 
+0 & 0  & \cdots & 1
+ \end{bmatrix} $
+
+A matriz identidade, além de ser triangular, é diagonal.
+
+\subsubsection{Propriedades}
+
+\begin{itemize}
+
+    \item A soma entre duas matrizes diagonais é fechada, ou seja, a soma é outra matriz diagonal.
+    $$ a_{nn} + b_{nn} = c_{nn} $$
+    $$ \begin{bmatrix}
+ a_{11} & 0 &  \cdots & 0 \\
+ 0 & a_{22} &  \cdots & 0 \\
+ \vdots & \vdots & \ddots & \vdots  \\ 
+0 & 0  & \cdots & a_{nn}
+ \end{bmatrix} + \begin{bmatrix}
+ b_{11} & 0 &  \cdots & 0 \\
+ 0 & b_{22} &  \cdots & 0 \\
+ \vdots & \vdots & \ddots & \vdots  \\ 
+0 & 0  & \cdots & b_{nn}
+ \end{bmatrix} = \begin{bmatrix}
+ c_{11} & 0 &  \cdots & 0 \\
+ 0 & c_{22} &  \cdots & 0 \\
+ \vdots & \vdots & \ddots & \vdots  \\ 
+0 & 0  & \cdots & c_{nn}
+ \end{bmatrix}$$
+ 
+    \item O produto de matrizes diagonais é uma operação fechada, ou seja, é outra matriz diagonal.
+    
+    $$ \begin{bmatrix}
+ a_{11} & 0 &  \cdots & 0 \\
+ 0 & a_{22} &  \cdots & 0 \\
+ \vdots & \vdots & \ddots & \vdots  \\ 
+0 & 0  & \cdots & a_{nn}
+ \end{bmatrix} \begin{bmatrix}
+ b_{11} & 0 &  \cdots & 0 \\
+ 0 & b_{22} &  \cdots & 0 \\
+ \vdots & \vdots & \ddots & \vdots  \\ 
+0 & 0  & \cdots & b_{nn}
+ \end{bmatrix} = \begin{bmatrix}
+ a_{11} b_{11} & 0 &  \cdots & 0 \\
+ 0 & a_{22} b_{22} &  \cdots & 0 \\
+ \vdots & \vdots & \ddots & \vdots  \\ 
+0 & 0  & \cdots & a_{nn} b_{nn}
+ \end{bmatrix} $$
+    
+    \item Uma matriz diagonal elevada a um número natural \textbf{p}.
+    
+    $$ \begin{bmatrix}
+ a_{11} & 0 &  \cdots & 0 \\
+ 0 & a_{22} &  \cdots & 0 \\
+ \vdots & \vdots & \ddots & \vdots  \\ 
+0 & 0  & \cdots & a_{nn}
+ \end{bmatrix} ^{\textbf{p}} = \begin{bmatrix}
+ a_{11}^{\textbf{p}} & 0 &  \cdots & 0 \\
+ 0 & a_{22}^{\textbf{p}} &  \cdots & 0 \\
+ \vdots & \vdots & \ddots & \vdots  \\ 
+0 & 0  & \cdots & a_{nn}^{\textbf{p}}
+ \end{bmatrix} $$
+    
+    \textbf{E.g.:} $ \begin{bmatrix}
+    2 & 0\\
+    0 & 3
+    \end{bmatrix}^{2} = \begin{bmatrix}
+    2^{2} & 0 \\
+    0 & 3^{2}
+    \end{bmatrix} $
+
+    \item Toda matriz diagonal é simétrica.
+    
+    \item O seu determinante é igual ao produto dos elementos da diagonal principal.
+    
+    \item A matriz identidade também é diagonal.
+
+\end{itemize}
+
+\subsection{Matriz Antidiagonal}
+
+Define-se a classificação de matriz antidiagonal como uma matriz quadrada cujos elementos são nulos, exceto as entradas da diagonal secundária. Portanto, uma matriz $ \text{A}_{\text{n} \times \text{n}} $ é uma matriz antidiagonal se o elemento $ (i, \ j) $ é zero $ \forall i,j  \in \left\{1, \ldots, \text{n}\right\} (i+j \ne \text{n}+1) $.
+
+\textbf{E.g.:} $\begin{bmatrix} 0 & 0 & 0 & 0 & 1 \\ 0 & 0 & 0 & 2 & 0 \\ 0 & 0 & 5 & 0 & 0 \\ 0 & 7 & 0 & 0 & 0 \\ -1 & 0 & 0 & 0 & 0 \end{bmatrix}$; $ \begin{bmatrix}
+0 & 0 & 3\\
+0 & 2 & 0\\
+1 & 0 & 0
+\end{bmatrix} $; $ \begin{bmatrix}
+0 & 3\\
+1 & 0
+\end{bmatrix} $; $ \begin{bmatrix}
+0 & 0 & 1\\
+0 & 1 & 0\\
+1 & 0 & 0
+\end{bmatrix} $
+
+\subsubsection{Propriedades}
+
+\begin{itemize}
+
+    \item O produto entre duas matrizes antidiagonais é uma matriz diagonal.
+
+    \item O produto entre uma matriz antidiagonal e uma matriz diagonal é uma matriz antidiagonal.
+
+    \item O produto entre uma matriz diagonal com uma matriz antidiagonal é uma matriz antidiagonal.
+
+\end{itemize}
+
+\subsection{Matriz Inversa}
+
+Define-se a classificação de matriz inversa de uma matriz quadrada de ordem \textbf{n} como uma matriz $ \text{A}^{-1} $ tal que $ \text{A}\text{A}^{-1} = \text{A}^{-1}\text{A} = \text{I}_{\text{n}} $. Chama-se $ \text{A}^{-1} $ a inversa de $ \text{A} $. A matriz inversa só é definida se, e somente se, $ \det \text{A} \neq 0 $.
+
+\textbf{E.g.:} $ \text{A} = \begin{bmatrix}
+1 & 3 \\
+2 & 0
+\end{bmatrix} $; $ \text{A}^{-1} = \begin{bmatrix}
+0 & \frac{1}{2}\\
+\frac{1}{3} & - \frac{1}{6}
+\end{bmatrix} $
+
+\subsubsection{Propriedades}
+
+Considerando-se $ \text{A} $ uma matriz invertível.
+
+\begin{itemize}
+    \item A matriz inversa é única
+    
+    \item A matriz inversa de uma matriz inversa também é invertível, sendo a inversa da inversa igual à própria matriz original.
+    
+    $$ \text{A} = (\text{A}^{-1})^{-1} $$
+    
+   \item A inversa da transposta é a transposta da inversa se, e somente se, $\text{A}$ for inversível. $$(\text{A}^\text{T})^{-1} = (\text{A}^{-1})^\text{T} \Leftrightarrow \det \text{A} \neq 0 \therefore \exists (\text{A}^{-1}\text{A}^{\text{T}})^{-1} $$
+   
+   \item A inversa do produto entre um escalar e uma matriz é igual ao produto da matriz inversa pelo inverso do escalar.
+   
+   $$ (u \text{A})^{-1}=u^{-1} \text{A}^{-1} \Leftrightarrow u \neq 0 $$
+   
+   \item O inverso do produto de matrizes invertíveis é igual aos produtos das inversas dessas matrizes com a ordem trocada.
+   
+   $$ (\text{A}_{1}\text{A}_{2}\text{A}_{3} \ ... \ \text{A}_{\text{n}})^{-1} = \text{A}_{\text{n}}^{-1} \ ... \ \text{A}_{3}^{-1}\text{A}_{2}^{-1}\text{A}_{1}^{-1} \Leftrightarrow \det \text{A}_{1} \det \text{A}_{2} \det \text{A}_{3} \ ... \ \det \text{A}_{n} \neq 0$$
+   
+\end{itemize}
+
+\subsection{Matriz Transposta}
+
+Seja uma matriz $ \text{A}_{\text{m} \times \text{n}} = (\text{a}_{ij})$.
+Define-se a classificação de matriz transposta de $ \text{A} $ como a matriz $ \text{A}^{\text{T}} =(\text{a'}_{ij})_{\text{n} \times \text{m'}} $, em que $ \text{a'}_{ij} = \text{a}_{ji} $, ou seja, na matriz transposta, trocamos as linhas por suas respectivas colunas e vice-versa.
+
+$$
+A = \begin{bmatrix}
+a_{1,1} & a_{1,2} & \ldots & a_{1,n} \\
+a_{2,1} & a_{2,2} & \ldots & a_{2,n} \\
+\vdots  & \vdots  & \ddots & \vdots \\
+a_{m,1} & a_{m,2} & \ldots & a_{m,n} \\
+\end{bmatrix} \Leftrightarrow
+A^\text{T} = \begin{bmatrix}
+a_{1,1} & a_{2,1} & \ldots & a_{m,1} \\
+a_{1,2} & a_{2,2} & \ldots & a_{m,2} \\
+\vdots  & \vdots  & \ddots & \vdots \\
+a_{1,n} & a_{2,n} & \ldots & a_{m,n} \\
+\end{bmatrix}$$
+
+A transposição é uma operação unitária ${}^\text{T}:\mathbb{M}\to\mathbb{M} $ definida no conjunto $ \mathbb{M} $ das matrizes que associa cada matriz a sua transposta.
+
+\textbf{E.g.:} $ \text{A} = \begin{bmatrix}
+1 & 2 \\
+3 & 4 \\
+5 & 6
+\end{bmatrix} $; $\text{A}^{\text{T}} = \begin{bmatrix}
+1 & 3 & 5 \\
+2 & 4 & 6
+\end{bmatrix}$
+
+\subsubsection{Propriedades}
+Matrizes transpostas têm as seguintes propriedades:
+\begin{itemize}
+
+    \item A transposta da transposta retorna à matriz original.
+    
+    $$ (\text{A}^{\text{T}})^{\text{T}} = \text{A}$$
+     \item A transposição é uma transformação linear, portanto:
+    \begin{itemize}
+        \item  A transposta da soma é a soma das transpostas.
+    
+    $$ (\text{A}+\text{B}) ^\text{T} = \text{A}^\text{T} + \text{B}^\text{T}$$
+
+ \item A transposta de uma matriz multiplicada por um escalar é igual ao produto do escalar pela transposta.
+    $$(c \text{A})^\text{T} = c (\text{A})^\text{T}$$
+    \end{itemize}
+    
+    \item O produto da transposição é igual ao produto das transposições invertido.
+    $$(\text{A} \text{B} )^\text{T} = \text{B}^\text{T} \text{A}^\text{T}$$
+
+    \item A inversa da transposta é a transposta da inversa se, e somente se, $\text{A}$ for inversível. $$(\text{A}^\text{T})^{-1} = (\text{A}^{-1})^\text{T} \Leftrightarrow \det \text{A} \neq 0$$
+    
+    \item A transposição não altera o determinante.
+    $$ \det(\text{A}^\text{T}) = \det(\text{A}) $$
+  
+\end{itemize}
+
+\subsection{Matrizes Comutativas}
+
+Define-se a classificação de matrizes comutativas se, e somente se, $ \text{A} \text{B} = \text{B} \text{A} $.
+
+\textbf{E.g.:} $ \begin{bmatrix}
+1 & -1 \\
+0 & 2 \\
+\end{bmatrix} 
+\begin{bmatrix}
+1 & -2 \\
+0 & 3
+\end{bmatrix}
+ = \begin{bmatrix}
+ 1 & -5 \\
+ 0 & 6
+ \end{bmatrix}$
+ 
+
+ $ \begin{bmatrix}
+1 & -2 \\
+0 & 3
+\end{bmatrix} \begin{bmatrix}
+1 & -1 \\
+0 & 2 \\
+\end{bmatrix} = \begin{bmatrix}
+1 & -5 \\
+0 & 6
+\end{bmatrix}$
+
+\subsubsection{Propriedades}
+Seja $ \text{A} $ e $ \text{B} $ matrizes que comutam.
+\begin{itemize}
+    \item O produto entre $ \text{A} $ e $ \text{A}^{-1} $ é comutativo, portanto são matrizes comutativas.
+    
+    \item $ (\text{A} + \text{B})^{2} = \text{A}^{2} + 2 \text{A} \text{B} + \text{B}^{2}$
+    
+\end{itemize}
+
+\subsection{Matrizes Anticomutativas}
+Define-se a classificação de matrizes anticomutativas se, e somente se, $ \text{A} \text{B} = - \text{B} \text{A} $.
+
+As chamadas matrizes de spin de Pauli são usadas em mecânica quântica para estudar o spin da partícula.
+
+\textbf{E.g.:} $ \boldsymbol{\sigma_{1}} = \begin{bmatrix}
+0 & 1\\
+1 & 0
+\end{bmatrix} $; $ \boldsymbol{\sigma_{2}} = \begin{bmatrix}
+0 & -i\\
+i & 0
+\end{bmatrix} $; $ \boldsymbol{\sigma_{3}} = \begin{bmatrix}
+1 & 0\\
+0 & -1
+\end{bmatrix} $
+
+\subsubsection{Propriedade}
+Seja $ \text{A} $ e $ \text{B} $ matrizes anticomutativas.
+\begin{itemize}
+    \item $ (\text{A} + \text{B})^{2} = (\text{A} - \text{B} )^{2} $
+\end{itemize}
+
+\subsection{Matriz Simétrica}
+
+Define-se a classificação de matriz simétrica se, e somente se, $ \text{A} = \text{A}^{\text{T}} $.
+
+\textbf{E.g.:} $ \text{A} =  \begin{bmatrix}
+4 & 1 & 2 \\
+1 & 5 & 3 \\
+2 & 3 & 6
+\end{bmatrix} \Rightarrow  \text{A}^{\text{T}} =  \begin{bmatrix}
+4 & 1 & 2 \\
+1 & 5 & 3 \\
+2 & 3 & 6
+\end{bmatrix}  \therefore \  \text{A} = \text{A}^{\text{T}} $
+
+São matrizes simétricas:
+
+\begin{itemize}
+
+\item A matriz nula, de qualquer ordem;
+
+\item A matriz identidade, de qualquer ordem.
+
+\end{itemize}
+
+\subsubsection{Propriedades}
+
+Seja $\text{A}$ uma matriz quadrada de ordem \textbf{n}.
+
+\begin{itemize}
+
+\item Toda matriz simétrica é quadrada.
+
+\item Se $\text{A}$ é simétrica, então para qualquer escalar \textbf{k}, a matriz $\textbf{k}\text{A}$ também é simétrica.
+
+\item A matriz $\text{B} = \text{A} + \text{A}^\text{T}$ é simétrica.
+
+\end{itemize}
+
+\subsection{Matriz Antissimétrica}
+
+Define-se a classificação de matriz antissimétrica se $ \text{A} = -\text{A}^{\text{T}} $, ou seja, é aquela cuja matriz transposta coincide com sua matriz oposta $ -\text{A} = \text{A}^{\text{T}} $.
+
+Portanto, os termos $ \text{a}_{ij} $ obedecem à seguinte condição:
+
+$$ \text{a}_{ij} = -\text{a}_{ji} $$
+
+Decorre disto que os termos da diagonal principal obrigatoriamente devem ser nulos, pois:
+
+$$ \text{a}_{ii} = -\text{a}_{ii} $$
+
+\textbf{E.g.:} $  \text{A} =  \begin{bmatrix}
+0 & -1 & -2 \\
+1 & 0 & -3 \\
+2 & 3 & 0
+\end{bmatrix}  \Rightarrow \text{A}^{\text{T}} =  \begin{bmatrix}
+0 & 1 & 2 \\
+-1 & 0 & 3 \\
+-2 & -3 & 0
+\end{bmatrix} \Rightarrow \text{A}^{\text{T}} \times -1 = \text{A} $
+
+$ \therefore \ \text{A} = -\text{A}^{\text{T}} $
+
+$$ \text{B} = \begin{bmatrix}
+0 & 7 & -1 \\
+-7 & 0 & 4 \\
+1 & -4 & 0
+\end{bmatrix} \Rightarrow \text{B}^{\text{T}} \times -1 = \text{B}
+\therefore \ \text{B} = -\text{B}^{\text{T}}$$
+
+
+\subsubsection{Propriedade}
+
+Seja $\text{A}$ uma matriz quadrada de ordem \textbf{n}.
+
+\begin{itemize}
+    \item A matriz $\text{B} = \text{A} - \text{A}^{\text{T}}$ é uma antissimétrica
+\end{itemize}
+
+\subsection{Matriz Normal}
+
+Define-se matriz normal é uma matriz que obedece à seguinte propriedade:
+
+$$ \text{A} \text{A}^* = \text{A}^* \text{A} $$
+
+Em que o asterisco representa a matriz transposta conjugada ou transposto Hermitiano.
+
+No entanto, para matrizes reais a condição anterior é o mesmo que dizer que uma matriz comuta com sua transposta, ou seja:
+
+$$ \text{A} \text{A}^\text{T} = \text{A}^{T} \text{A} $$
+
+Pois a matriz transposta conjugada de uma matriz real é a transposta da matriz.
+
+\textbf{E.g.:} $ \begin{bmatrix}
+i & i\\
+i & -i
+\end{bmatrix} $; $ \begin{bmatrix}
+2 & -2\\
+2 & 2
+\end{bmatrix} $
+
+\subsubsection{Propriedades}
+
+\begin{itemize}
+
+    \item Toda matriz real simétrica é uma matriz normal.
+    
+    \item Toda matriz antissimétrica real também é uma matriz normal.
+    
+    \item Toda matriz ortogonal real também é uma matriz normal.
+
+\end{itemize}
+
+\subsection{Matriz Triangular}
+
+Matriz triangular é um tipo especial de matriz quadrada.
+
+\subsubsection{Matriz Triangular Superior}
+
+Define-se a classificação de matriz triangular superior, uma matriz quadrada se todas as entradas abaixo da diagonal principal forem zero.
+$$
+\text{t}_{s} = \begin{bmatrix}
+  \text{t}_{s_{1,1}} & \text{t}_{s_{1,2}} & \text{t}_{s_{1,3}} & \ldots &   \text{t}_{s_{1,n}} \\
+          & \text{t}_{s_{2,2}} & \text{t}_{s_{2,3}} & \ldots &   \text{t}_{s_{2,n}} \\
+          &         &  \ddots & \ddots &    \vdots \\
+          &         &         & \ddots & \text{t}_{s_{n-1,n}} \\
+        0 &         &         &        &   \text{t}_{s_{n,n}}
+\end{bmatrix}
+$$
+
+\textbf{E.g.:} $ \begin{bmatrix}
+  1 & 4 & 1 \\
+  0 & 6 & 4 \\
+  0 & 0 & 1 \\
+\end{bmatrix} $; $ \begin{bmatrix}
+1 & 5 & 6 & 7 \\
+0 & 2 & 8 & 9 \\
+0 & 0 & 3 & 10 \\
+0 & 0 & 0 & 4
+\end{bmatrix} $
+
+\subsubsection{Matriz Triangular Inferior}
+
+Define-se a calssificação de matriz triangular inferior, uma matriz quadrada se todas as entradas acima da diagonal principal forem zero.
+
+$$
+\text{T}_{i} = \begin{bmatrix}
+  \text{t}_{i_{1,1}} &            &        &              &          0 \\
+  \text{t}_{i_{2,1}} & \text{t}_{i_{2,2}} &        &              &            \\
+  \text{t}_{i_{3,1}} & \text{t}_{i_{3,2}} & \ddots &              &            \\
+      \vdots &     \vdots & \ddots &       \ddots &            \\
+  \text{t}_{i_{n,1}} & \text{t}_{i_{n,2}} & \ldots & \text{t}_{i_{n,n-1}} & \text{t}_{i_{n,n}}
+\end{bmatrix}
+$$
+
+\textbf{E.g.:} $ \begin{bmatrix}
+  1 & 0 & 0 \\
+  2 & 96 & 0 \\
+  4 & 9 & 69 \\
+\end{bmatrix} $;  $ \begin{bmatrix}
+1 & 0 & 0 & 0 \\
+5 & 2 & 0 & 0 \\
+6 & 8 & 3 & 0 \\
+7 & 9 & 10 & 4
+\end{bmatrix} $
+
+\subsubsection{Propriedades}
+
+\begin{itemize}
+
+\item Uma matriz triangular e normal também é diagonal.
+
+\item A transposta de uma matriz triangular inferior é uma matriz triangular superior e vice-versa.
+
+\item O determinante de uma matriz triangular é o produto dos elementos da diagonal principal.
+
+$$ \det \text{A}=\text{a}_{1,1} \cdot \text{a}_{2,2} \cdot \cdots \cdot \text{a}_{n,n}=\prod _{i=1}^{n}\text{a}_{i,i} $$
+
+\item A classificação de matriz triangular superior é conservada em muitas operações:
+
+  \begin{itemize}
+  
+    \item A soma de duas matrizes triangulares superiores é triangular superior.
+  
+    \item O produto de duas matrizes triangulares superiores é triangular superior.
+  
+    \item O inverso de uma matriz triangular superior, quando existente, é triangular superior.
+  
+    \item O produto de uma matriz triangular superior e de um escalar é triangular superior.
+  
+  \end{itemize}
+  
+  \textbf{P.S.:} Esses resultados também são válidos para matrizes triangulares inferiores. Entretanto, não se pode afirmar o mesmo às operações que envolvam matrizes triangulares superiores e inferiores.
+  
+  \textbf{E.g.:}
+  $\begin{bmatrix}
+  1 & 0 & 0 \\
+  2 & 96 & 0 \\
+  4 & 9 & 69 \\
+\end{bmatrix} + \begin{bmatrix}
+  1 & 4 & 1 \\
+  0 & 6 & 4 \\
+  0 & 0 & 1 \\
+\end{bmatrix} = \begin{bmatrix}
+ 2  & 4 & 1 \\
+ 2  & 102 & 4 \\
+ 4 & 9 & 70 \\
+\end{bmatrix} $
+  
+  *Um contraexemplo da primeira propriedade apresentada.
+
+\end{itemize}
+
+\subsection{Matriz Ortogonal}
+
+Define-se a classificação de matriz ortogonal como uma matriz quadrada $ \text{A} $ se sua transposta é igual à sua inversa, ou seja, $ \text{A}^{\text{T}} = \text{A}^{-1} $ ou $ \text{A}\text{A}^{\text{T}} = \text{I} \Rightarrow \det \text{A} \neq 0$.
+
+\textbf{E.g.:} $ \begin{bmatrix}
+\frac{1}{2} & \frac{\sqrt{3}}{2} \\
+- \frac{\sqrt{3}}{2} & \frac{1}{2}
+\end{bmatrix} \Rightarrow  \begin{bmatrix}
+\frac{1}{2} & \frac{\sqrt{3}}{2} \\
+- \frac{\sqrt{3}}{2} & \frac{1}{2}
+\end{bmatrix}  \begin{bmatrix}
+\frac{1}{2} & - \frac{\sqrt{3}}{2} \\
+ \frac{\sqrt{3}}{2} & \frac{1}{2}
+\end{bmatrix} = \begin{bmatrix}
+1 & 0 \\
+0 & 1
+\end{bmatrix} $
+
+A matriz identidade também é ortogonal.
+
+Exemplos:
+
+\begin{itemize}
+
+    \item A matriz identidade.
+    
+    $$ \begin{bmatrix}
+    1 & 0 & 0\\
+    0 & 1 & 0\\
+    0 & 0 & 1
+    \end{bmatrix} $$
+    
+    \item A matriz de rotação no sentido anti-horário.
+    
+    $$ R_{\theta} = \begin{bmatrix}
+    \cos \theta & - \sin \theta \\
+    \sin \theta & \cos \theta
+    \end{bmatrix} $$
+    
+    \item A matriz de reflexão em torno do eixo $ x $.
+    
+    $$ R_{x} = \begin{bmatrix}
+    1 & 0\\
+    0 & -1
+    \end{bmatrix} $$
+    
+\end{itemize}
+
+\subsubsection{Propriedades}
+
+\begin{itemize}
+
+    \item Se $ \text{A} $ é uma matriz ortogonal, então $ \det \text{A} = \pm 1 $
+    
+    \item A matriz $ \text{A} $ é ortogonal se, e somente se, sua transposta $ \text{A}^{\text{T}} $ também é.
+    
+    \item Se $ \text{A} $ é uma matriz ortogonal, então $ c \text{A} $ é ortogonal se, e somente se, $ c = \pm 1 $.
+    
+    
+\end{itemize}
+
+\subsection{Matriz Involutiva}
+
+Define-se a classificação de matriz involutiva como uma matriz quadrada $ \text{A} $ se ela é igual à sua inversa, ou seja, $ \text{A} = \text{A}^{-1} $, ou $ \text{A}^{2} = \text{I} $
+
+\textbf{E.g.:} $ \begin{bmatrix}
+1 & -1 \\
+0 & -1
+\end{bmatrix} \Rightarrow \begin{bmatrix}
+1 & -1 \\
+0 & -1
+\end{bmatrix}^{2} = \begin{bmatrix}
+1 & 0 \\
+0 & 1 
+\end{bmatrix}$; $ \begin{bmatrix}
+1 & 0 & 0\\
+0 & 0 & 1\\
+0 & 1 & 0
+\end{bmatrix} $; $ \begin{bmatrix}
+1 & 0 & 0\\
+0 & -1 & 0\\
+0 & 0 & -1
+\end{bmatrix} $
+
+A matriz identidade e as matrizes de spin de Pauli também são involutivas.
+
+\subsubsection{Propriedades}
+
+\begin{itemize}
+
+    \item O determinante de uma matriz involutiva é $ \pm 1 $
+
+    \item Se $ \text{A} $ e $ \text{B} $ são duas matriz involutivas que comutam entre si, então $ \text{A} \text{B} $ também é involutiva.
+    
+    \item Se $ \text{A} $ é uma matriz involutiva, etão toda a potência inteira de $ \text{A} $ é involutiva. $ \text{A}^{\text{\textbf{n}}} $ será igual a $ \text{A} $ se \textbf{n} for ímpar e $ \text{I} $ se \textbf{n} for par.
+    
+\end{itemize}
+
+\subsection{Matriz Periódica}
+
+Define-se a classificação de matriz periódica como uma matriz quadrada $ \text{A} $ (de período \textbf{k}, ou até mesmo \textbf{k}-periódica) se $ \text{A}^{\textbf{k} + 1} = \text{A} $.
+
+A matriz abaixo é periódica, de período 4.
+
+\textbf{E.g.:} $ \begin{bmatrix}
+\text{i} & 0 & 0 \\
+0 & -\text{i} & 0 \\
+0 & 0 & 1
+\end{bmatrix} \Rightarrow \begin{bmatrix}
+\text{i} & 0 & 0 \\
+0 & -\text{i} & 0 \\
+0 & 0 & 1
+\end{bmatrix}^{5} = \begin{bmatrix}
+\text{i} & 0 & 0 \\
+0 & -\text{i} & 0 \\
+0 & 0 & 1
+\end{bmatrix} $
+
+\begin{itemize}
+    \item A matriz identidade também é periódica, de período 1.
+\end{itemize}
+
+A matriz abaixo é periódica, de período 1.
+$$ \begin{bmatrix}
+2 & -2 & -4\\
+-1 & 3 & 4\\
+1 & -2 & -3
+\end{bmatrix}^{2} = \begin{bmatrix}
+2 & -2 & -4\\
+-1 & 3 & 4\\
+1 & -2 & -3
+\end{bmatrix} $$
+
+\subsection{Matriz Idempotente}
+
+Define-se a classificação de matriz idempotente como uma matriz quadrada $ \text{A} $ quando $ \text{A}^{2} = \text{A} $, ou seja, é uma matriz periódica com período igual a 1.
+
+\textbf{E.g.:} $ \begin{bmatrix}
+1 & 0 & 0 \\
+0 & 0 & 0 \\
+0 & 0 & 1
+\end{bmatrix}^{2} = \begin{bmatrix}
+1 & 0 & 0 \\
+0 & 0 & 0 \\
+0 & 0 & 1
+\end{bmatrix} $; $ \begin{bmatrix}
+2 & 0 & 2\\
+1 & -1 & 2\\
+0 & 3 & 0
+\end{bmatrix}^{2} = \begin{bmatrix}
+2 & 0 & 2\\
+1 & -1 & 2\\
+0 & 3 & 0
+\end{bmatrix} $
+
+A matriz identidade também é idempotente.
+
+\subsubsection{Propriedade}
+
+\begin{itemize}
+    \item Com exceção da matriz identidade, uma matriz idempotente $ \text{A} $ tem sempre seu determinante igual a 0, ou seja, não admite inversa.
+\end{itemize}
+
+\subsection{Matriz Nilpotente}
+Define-se a classificação de matriz nilpotente como uma matriz quadrada $\text{A}$ se existe um natural $ \textbf{n} \geq 2 $ tal que $ \text{A}^{\textbf{n}} = 0 $. Se \textbf{n} é o menor número natural que satisfaz $ \text{A}^{\textbf{n}} = 0 $, então o número \textbf{n} é chamado de índice de $ \text{A} $.
+
+A matriz abaixo apresenta índice igual a $ 3 $.
+
+\textbf{E.g.:} $ \begin{bmatrix}
+0 & 1 & 0\\
+0 & 0 & 1\\
+0 & 0 & 0 
+\end{bmatrix}  \Rightarrow  \begin{bmatrix}
+0 & 1 & 0\\
+0 & 0 & 1\\
+0 & 0 & 0 
+\end{bmatrix} ^{3} =  \begin{bmatrix}
+0 & 0 & 0\\
+0 & 0 & 0\\
+0 & 0 & 0 
+\end{bmatrix} $
+
+A matriz abaixo apresenta índice igual a 2.
+
+$ \begin{bmatrix}
+1 & -1 & 1\\
+-3 & 3 & -3\\
+-4 & 4 & -4
+\end{bmatrix}^{2} = \begin{bmatrix}
+ 0 & 0 & 0\\
+ 0 & 0 & 0\\
+ 0 & 0 & 0
+\end{bmatrix}$
+
+\subsection{Matriz de Vandermonde}
+
+Define-se a classificação de matriz de Vandermonde como uma matriz em que os elementos de cada linhas estão em progressão geométrica. Alguns autores denotam a transposta da matriz abaixo, estando as colunas em progressão.
+
+$$ \begin{bmatrix}
+1 & a_1 & a_1^2 & \dots & a_1^{n-1}\\
+1 & a_2 & a_2^2 & \dots & a_2^{n-1}\\
+1 & a_3 & a_3^2 & \dots & a_3^{n-1}\\
+\vdots & \vdots & \vdots & \ddots &\vdots \\
+1 & a_m & a_m^2 & \dots & a_m^{n-1}\\
+\end{bmatrix} $$
+
+
+\textbf{E.g.:} $ \begin{bmatrix}
+1 & 1 & 1 \\
+2 & 5 & 3 \\
+4 & 25 & 9
+\end{bmatrix} $; $ \begin{bmatrix}
+ 1 & 1 & 1 & 1 \\
+ 1 & 2 & 3 & 4 \\
+ 1 & 4 & 9 & 16 \\
+ 1 & 8 & 27 & 64
+\end{bmatrix} $
+
+\subsection{Matriz de Cofatores}
+
+Define-se a classificação de matriz dos cofatores, e representa-se por $ \text{C} $ a matriz formada por todos os cofatores de uma matriz original $ \text{A} $.
+
+\textbf{E.g.:}
+
+Seja $ \text{A} $ a matriz original.
+
+ $$ \text{A} = \begin{bmatrix}
+1 & 5 \\
+0 & 2
+\end{bmatrix} $$
+
+A matriz dos cofatores pode ser escrita como:
+
+$$ \text{C} = \begin{bmatrix}
+\text{C}_{11} & \text{C}_{12}\\
+\text{C}_{21} & \text{C}_{22}
+\end{bmatrix} \Rightarrow \text{C} = \begin{bmatrix}
+2 & 0 \\
+-5 & 1
+\end{bmatrix} $$
+
+\subsection{Matriz Adjunta}
+
+Define-se a classificação de matriz adjunta como a transposta de uma matriz $ \text{C} $ de cofatores.
+
+\textbf{E.g.:}
+
+Seja $ \text{A} $ a matriz original.
+
+ $$ \text{A} = \begin{bmatrix}
+1 & 5 \\
+0 & 2
+\end{bmatrix} $$
+
+A matriz dos cofatores pode ser escrita como:
+
+$$ \text{C} = \begin{bmatrix}
+\text{C}_{11} & \text{C}_{12}\\
+\text{C}_{21} & \text{C}_{22}
+\end{bmatrix} \Rightarrow \text{C} = \begin{bmatrix}
+2 & 0 \\
+-5 & 1
+\end{bmatrix} $$
+
+A matriz adjunta é a transposta da matriz dos cofatores:
+
+$$ \text{C}^{\text{T}} = \begin{bmatrix}
+2 & -5 \\
+0 & 1
+\end{bmatrix} $$
+
+\subsubsection{Propriedades}
+
+Seja $ \text{A} $ e $ \text{B} $ duas matrizes quadradas de ordem \textbf{n} e $ \nu \in \mathbb{R}$.
+
+\begin{itemize}
+
+    \item A adjunta da matriz identidade é igual à matriz identidade.
+    
+    $$ \operatorname{adj} ( \text{I} ) = \text{I} $$
+    
+    \item A adjunta da matriz nula é igual à matriz nula.
+    
+    $$ \operatorname{adj} ( \text{0} ) = \text{0} $$
+    
+    \item A adjunta do produto é o produto das adjuntas.
+    
+    $$ \operatorname{adj} ( \text{A} \text{B} ) = \operatorname{adj} ( \text{A} ) \operatorname{adj} ( \text{B} ) $$
+    
+    \item A adjunta da transposta é a transposta da adjunta.
+    
+    $$ \operatorname{adj} ( \text{A}^{\text{T}} ) = \operatorname{adj} ( \text{A} ) ^{\text{T}} $$
+    
+    \item O produto entre $ \text{A} $ e sua adjunta é comutativo, além disso, esse produto é igual ao produto do determinante de $ \text{A} $ e a matriz identidade de ordem \textbf{n}.
+    
+    $$ \text{A} \operatorname{adj} ( \text{A} ) = \operatorname{adj} ( \text{A} ) \text{A} = \det \text{A} \text{I} $$
+    
+    \item A adjunta da matriz $ \text{A} $ multiplicada por um escalar $ \nu $ é igual ao produto de $ \nu $ elevado a $ \textbf{n} - 1 $ e a adjunta de $ \text{A} $.
+    
+    
+    $$ \operatorname{adj} ( \nu A ) = \nu^{\textbf{n} - 1} \operatorname{adj} ( A ) $$
+    
+    \item O determinante da adjunta é igual ao determinante elevado a $ \textbf{n} - 1 $.
+    
+    $$ \det ( \operatorname{adj} ( \text{A} ) ) = (\det \text{A})^{\textbf{n} - 1} $$
+    
+    \item A adjunta da adjunta é igual ao produto do determinante de $ \text{A} $ elevado a $ \textbf{n} - 2 $ e $ \text{A} $.
+    
+    $$ \operatorname{adj} ( \operatorname{adj} ( \text{A} ) ) = ( \det \text{A} )^{\textbf{n} - 2} \text{A} $$
+    
+\end{itemize}
+
+
+\newpage
+
+\section{Exercício}
+
+ \begin{enumerate}
+ 
+\item Complete a frase:
+
+As matrizes são representados por --- por ---, nos quais o --- é número de linhas.
+
+    \begin{enumerate}
+    
+        \item Letras minúsculas; conjuntos; quarto.
+        
+        \item Números; formas; terceiro.
+        
+        \item Letras maiúsculas; índices; primeiro.
+        
+    \end{enumerate}
+
+
+\item (Prefeitura de Bombinhas - SC) É correto afirmar que:
+
+    \begin{enumerate}
+
+    \item A matriz unitária é uma matriz quadrada que possui todos os elementos da diagonal principal iguais a 1 e os demais elementos iguais a 0.
+    
+    \item Duas matrizes, A = $ [\text{a}_{ij}]_{m \times n} $ e B = $ [\text{b}_{ij}]_{n \times m} $, são opostas se, e somente se, $ \text{a}_{ij} = \text{b}_{ij}$.
+    
+    \item Uma matriz é quadrada quando o número de linhas é igual ao número de colunas.
+    
+    \item Uma matriz é dita nula se todos os seus elementos diferem de zero.
+
+    \end{enumerate}
+
+ \end{enumerate}
+ 
+\section{Resolução do Exercício}
+ 
+ \begin{enumerate}
+ 
+    \item
+    
+    \begin{enumerate}
+    
+        \item Falso.
+        
+        \item Falso.
+        \textcolor{green}{\item Verdadeiro.}
+        
+    \end{enumerate}
+ 
+
+    \item
+
+    \begin{enumerate}
+
+    \item Matriz unitária é uma matriz quadrada de ordem 1.
+    
+    \item Duas matrizes serão opostas se, e somente se, $ \text{a}_{ij} = -\text{b}_{ij} $.
+    \textcolor{green}{\item Uma matriz é quadrada quando o número de linhas é igual ao número de colunas.}
+    
+    \item Uma matriz é dita nula se todos os seus elementos são iguais a zero.
+    
+    \end{enumerate}
+    
+ \end{enumerate}
+ 
+\newpage
+
+\section{Considerações Finais}
+
+Como apresentado, uma matriz é um conjunto de números dispostos em forma retangular, formando linhas e colunas, seus tipos dependem da sua estrutura e sua classificação dos elementos.
+
+As matrizes são muito importantes em: probabilidade, estatística, ótica, economia, teoria dos jogos, criptografia, química, eletromagnetismo, mecânica clássica e quântica, física, análise numérica, controle de sistemas, equações diferenciais, machine learning, \textit{etc}.
+
+Podem ser utilizadas em circuitos elétricos e eletrônicos, pois esses podem ser representados por equações lineares em que as correntes e tensões são as variáveis desconhecidas ou em modelos simples envolvendo o espalhamento de um vírus.
+
+Em última análise, os estudos e pesquisas sobre matrizes tem um grande potencial matemático e de aplicação, partindo de tratamento de imagens a redes neurais
+
+\newpage
+
+\bibliography{ref.bib}
+
+\end{document}
